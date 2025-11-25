@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: white;
+      font-family: monospace;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: #2c2f33;
+      padding: 20px;
+      width: 360px;
+      margin: auto;
+      border-radius: 8px;
+    }
+
+    .container div {
+      background-color: white;
+      color: black;
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1>flex-wrap: wrap</h1>
+<p>flex-wrap: wrap; specifies that the flex items will wrap if necessary</p>
+
+<div class="container">
+  <div>7</div>
+  <div>2</div>
+  <div>9</div>
+  <div>1</div>
+  <div>5</div>
+  <div>3</div>
+  <div>8</div>
+  <div>4</div>
+  <div>6</div>
+</div>
+<p>Try resizing the browser window!</p>
+
+</body>
+</html>

@@ -1,24 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Jose Mirador's Personal Website</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Jose Mirador Profile Resizer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #e5e7eb;
+  }
+
+  select {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    cursor: pointer;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  select:hover {
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .preview-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 800px;
+  }
+
+  #previewBox {
+    background: white;
+    border: none;
+    border-radius: 16px;
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    width: 1280px; 
+    height: 720px;
+    
+    transition: all 0.5s ease;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+
+    container-type: inline-size;
+  }
+
+  .content { 
+    padding: 40px;
+    text-align: left; 
+    max-width: 960px; 
+    margin: auto;
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  h1 { 
+    text-align: center; 
+    margin-bottom: 40px;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  
+  h2 { 
+    margin-top: 20px; 
+    font-size: 1.5rem; 
+    font-weight: 600; 
+    color: #374151;
+    border-bottom: 2px solid #6366f1;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    line-height: 1.6;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+  }
+
+  img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  hr {
+    display: none;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    padding-left: 1.5em;
+    position: relative;
+    color: #4b5563;
+  }
+  
+  li::before {
+    content: "•";
+    color: #6366f1;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  @container (max-width: 900px) {
+    .container { 
+      grid-template-columns: 1fr; 
+      text-align: center; 
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .content { padding: 20px; }
+  }
+
+  @container (max-width: 600px) {
+    img { max-width: 180px; margin-top: 10px;}
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.25rem; }
+    .content { padding: 15px; }
+  }
+</style>
 </head>
 <body>
-  <h1>Welcome to My Website</h1>
-  
-  <!-- Your name -->
-  <h2>Jose Mirador</h2>
-  
-  <!-- Introduction -->
-  <p>Hello! My name is Jose Mirador. I’m passionate about technology, cybersecurity, and hands-on electronics. 
-     This website is a space to share my projects, ideas, and personal interests.</p>
-  
-  <!-- Image section -->
-  <div>
-    <!-- Replace the URL below with your own image link -->
-    <img src="https://i.pinimg.com/736x/14/20/fd/1420fdb2c1b84a55bc9a61e3050b0fa5.jpg" alt="Jose Mirador" width="300">
+
+<select id="sizeSelector" onchange="resizeBox()">
+  <option value="1280,720">Desktop (1280x720)</option>
+  <option value="768,1024">Tablet (768x1024)</option>
+  <option value="390,844">Phone (390x844)</option>
+</select>
+
+<div class="preview-wrapper">
+  <div id="previewBox">
+    <div class="content">
+      <h1>Jose Mirador's Profile</h1>
+
+      <div class="container">
+        <div>
+          <h2>Introduction</h2>
+          <p>Hello! My name is Jose Mirador. I’m passionate about technology, cybersecurity, and hands-on electronics. This website is a space to share my projects, ideas, and personal interests.</p>
+        </div>
+
+        <div>
+          <img src="https://i.pinimg.com/736x/14/20/fd/1420fdb2c1b84a55bc9a61e3050b0fa5.jpg" alt="Jose Mirador Profile Image">
+        </div>
+      </div>
+      
+      <h2>About Me</h2>
+      <p>I am a second-year student studying Information Technology at Asia Pacific College. I enjoy exploring new technologies, building hardware projects, and strengthening my skills in IT infrastructure and cybersecurity.</p>
+
+      <h2>Education/Achievements </h2>
+      <ul>
+        <li>Graduated Junior High School at APEC Pateros</li>
+        <li>Graduated Senior High School at APEC Pateros, took Accounting Business Management as my course with high honors</li>
+      </ul>
+
+      <h2>Hobbies & Interests</h2>
+      <ul>
+        <li>I love to listen to music</li>
+        <li>I read Manhwa</li>
+        <li>I watch Anime</li>
+      </ul>
+
+      <h2>Goals & Dreams</h2>
+      <ul>
+        <li>To finish college and earn a degree in Information Technology</li>
+        <li>To have a successful job in the field of IT</li>
+      </ul>
+
+    </div>
   </div>
+</div>
+
+<script>
+  function resizeBox() {
+    var selector = document.getElementById("sizeSelector");
+    var dimensions = selector.value.split(",");
+    var width = dimensions[0];
+    var height = dimensions[1];
+    
+    var box = document.getElementById("previewBox");
+    
+    box.style.width = width + "px";
+    box.style.height = height + "px";
+    if (width < 500) {
+      box.style.borderWidth = "12px"; 
+      box.style.borderRadius = "30px";
+      box.style.maxHeight = "844px"; 
+    } else {
+      box.style.borderWidth = "2px";
+      box.style.borderRadius = "16px";
+      box.style.maxHeight = "none"; 
+    }
+  }
+  document.addEventListener('DOMContentLoaded', resizeBox);
+</script>
+
 </body>
 </html>

@@ -1,24 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Jose Mirador's Personal Website</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Jose Mirador Profile Resizer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #e5e7eb;
+    overflow-y: scroll; 
+  }
+
+  .profile-header {
+    background-color: #1f2937;
+    padding: 1rem 0;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+  }
+
+  .nav-item {
+    margin: 0 1rem;
+  }
+
+  .nav-item a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  .nav-item a:hover {
+    color: #1f2937; 
+    background-color: #ffffff; 
+    transform: translateY(-2px);
+  }
+
+  .controls-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .device-selector {
+    display: inline-flex;
+    background: white;
+    padding: 6px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #e5e7eb;
+    gap: 5px;
+  }
+
+  .device-btn {
+    border: none;
+    background: transparent;
+    padding: 10px 24px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .device-btn:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+  }
+
+  .device-btn.active {
+    background-color: #1f2937;
+    color: white;
+    box-shadow: 0 2px 8px rgba(31, 41, 55, 0.3);
+  }
+
+  .device-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .preview-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 800px;
+    perspective: 1000px;
+  }
+
+  #previewBox {
+    background: #f3f4f6;
+    border: none;
+    border-radius: 16px;
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    
+    width: 1280px; 
+    height: 720px;
+    
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-radius 0.6s ease;
+    
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0,0,0,0.05);
+
+    container-type: inline-size;
+    position: relative;
+  }
+
+  .content { 
+    padding: 40px;
+    text-align: left; 
+    max-width: 960px; 
+    margin: auto;
+  }
+
+  .section-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    scroll-margin-top: 100px;
+    transition: transform 0.3s ease;
+  }
+  
+  .section-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    gap: 30px;
+  }
+
+  h1 { 
+    text-align: center; 
+    margin-bottom: 30px;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-top: 0;
+  }
+  
+  h2 { 
+    margin-top: 0; 
+    font-size: 1.5rem; 
+    font-weight: 600; 
+    color: #374151;
+    border-bottom: 2px solid #6366f1;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    line-height: 1.6;
+    color: #4b5563;
+    margin-bottom: 1rem;
+  }
+  
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  li {
+    margin-bottom: 12px;
+    padding-left: 1.5em;
+    position: relative;
+    color: #4b5563;
+    line-height: 1.6;
+  }
+  
+  li::before {
+    content: "•";
+    color: #6366f1;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+
+  @container (max-width: 900px) {
+    .intro-grid { 
+      grid-template-columns: 1fr; 
+      text-align: center; 
+    }
+    .content { padding: 20px; }
+    .section-card { padding: 30px; }
+  }
+
+  @container (max-width: 600px) {
+    img { max-width: 180px; margin-top: 20px;}
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.25rem; }
+    .content { padding: 15px; }
+    .section-card { padding: 20px; margin-bottom: 20px; }
+  }
+</style>
 </head>
 <body>
-  <h1>Welcome to My Website</h1>
-  
-  <!-- Your name -->
-  <h2>Jose Mirador</h2>
-  
-  <!-- Introduction -->
-  <p>Hello! My name is Jose Mirador. I’m passionate about technology, cybersecurity, and hands-on electronics. 
-     This website is a space to share my projects, ideas, and personal interests.</p>
-  
-  <!-- Image section -->
-  <div>
-    <!-- Replace the URL below with your own image link -->
-    <img src="https://i.pinimg.com/736x/14/20/fd/1420fdb2c1b84a55bc9a61e3050b0fa5.jpg" alt="Jose Mirador" width="300">
+
+<header class="profile-header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#home">HOME & INTRODUCTION</a></li>
+            <li class="nav-item"><a href="#about">ABOUT</a></li>
+            <li class="nav-item"><a href="#education">EDUCATION</a></li>
+            <li class="nav-item"><a href="#experience">EXPERIENCE</a></li>
+            <li class="nav-item"><a href="#hobbies">HOBBIES</a></li>
+            <li class="nav-item"><a href="#goals">GOALS</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="controls-container">
+  <div class="device-selector">
+    <button class="device-btn active" onclick="resizeBox('1280,720', this)">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/></svg>
+      Desktop
+    </button>
+    <button class="device-btn" onclick="resizeBox('768,1024', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 18c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm7-3H5V4h14v13z"/></svg>
+      Tablet
+    </button>
+    <button class="device-btn" onclick="resizeBox('390,844', this)">
+      <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+      Phone
+    </button>
   </div>
+</div>
+
+<div class="preview-wrapper">
+  <div id="previewBox">
+    <div class="content">
+      
+      <section id="home" class="section-card">
+        <h1>Jose Mirador's Profile</h1>
+        <div class="intro-grid">
+          <div>
+            <h2>Introduction</h2>
+            <p>Hello! My name is Jose Mirador. I’m passionate about technology, cybersecurity, and hands-on electronics. This website is a space to share my projects, ideas, and personal interests.</p>
+          </div>
+          <div>
+            <img src="https://i.pinimg.com/736x/14/20/fd/1420fdb2c1b84a55bc9a61e3050b0fa5.jpg" alt="Jose Mirador Profile Image">
+          </div>
+        </div>
+      </section>
+      
+      <section id="about" class="section-card">
+        <h2>About Me</h2>
+        <p>I am a second-year student studying Information Technology at Asia Pacific College. I enjoy exploring new technologies, building hardware projects, and strengthening my skills in IT infrastructure and cybersecurity.</p>
+      </section>
+
+      <section id="education" class="section-card">
+        <h2>Education/Achievements</h2>
+        <ul>
+          <li>Graduated Junior High School at APEC Pateros</li>
+          <li>Graduated Senior High School at APEC Pateros, took Accounting Business Management as my course with high honors</li>
+        </ul>
+      </section>
+
+      <section id="experience" class="section-card">
+        <h2>Experience & Projects</h2>
+        <ul>
+          <li>Developed a voice-activated AI speaking bot that reads files for you</li>
+          <li>Created a borrow items and reserve room system</li>
+        </ul>
+      </section>
+
+      <section id="hobbies" class="section-card">
+        <h2>Hobbies & Interests</h2>
+        <ul>
+          <li>I love to listen to music</li>
+          <li>I read Manhwa</li>
+          <li>I watch Anime</li>
+        </ul>
+      </section>
+
+      <section id="goals" class="section-card">
+        <h2>Goals & Dreams</h2>
+        <ul>
+          <li>To finish college and earn a degree in Information Technology</li>
+          <li>To have a successful job in the field of IT</li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function resizeBox(sizeValue, btnElement) {
+    var dimensions = sizeValue.split(",");
+    var width = dimensions[0];
+    var height = dimensions[1];
+    
+    var box = document.getElementById("previewBox");
+    
+    if (btnElement) {
+        document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+    }
+    
+    box.style.width = width + "px";
+    box.style.height = height + "px";
+    
+    if (width < 500) {
+      box.style.borderWidth = "12px"; 
+      box.style.borderRadius = "30px";
+      box.style.maxHeight = "844px"; 
+    } else {
+      box.style.borderWidth = "2px";
+      box.style.borderRadius = "16px";
+      box.style.maxHeight = "none"; 
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    document.querySelectorAll('.nav-item a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center' 
+          });
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>

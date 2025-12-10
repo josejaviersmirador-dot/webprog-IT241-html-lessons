@@ -1,390 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Jose Mirador Profile Resizer</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Inter', sans-serif;
-    text-align: center;
-    padding: 20px;
-    background-color: #e5e7eb;
-    overflow-y: scroll; 
-  }
-
-  .profile-header {
-    background-color: #1f2937;
-    padding: 1rem 0;
-    margin-bottom: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .nav-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; 
-  }
-
-  .nav-item {
-    margin: 0 1rem;
-  }
-
-  .nav-item a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition: all 0.2s ease;
-    display: inline-block;
-  }
-
-  .nav-item a:hover {
-    color: #1f2937; 
-    background-color: #ffffff; 
-    transform: translateY(-2px);
-  }
-
-  .controls-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-
-  .device-selector {
-    display: inline-flex;
-    background: white;
-    padding: 6px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid #e5e7eb;
-    gap: 5px;
-  }
-
-  .device-btn {
-    border: none;
-    background: transparent;
-    padding: 10px 24px;
-    border-radius: 40px;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #6b7280;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-  }
-
-  .device-btn:hover {
-    background-color: #f3f4f6;
-    color: #1f2937;
-  }
-
-  .device-btn.active {
-    background-color: #1f2937;
-    color: white;
-    box-shadow: 0 2px 8px rgba(31, 41, 55, 0.3);
-  }
-
-  .device-btn svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-  }
-
-  .preview-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 800px;
-    perspective: 1000px;
-  }
-
-  #previewBox {
-    background: #f3f4f6;
-    border: none;
-    border-radius: 16px;
-    margin: 0 auto;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+    <meta charset="UTF-8">
+    <title>Jose Mirador | Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    width: 1280px; 
-    height: 720px;
-    
-    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-                border-radius 0.6s ease;
-    
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0,0,0,0.05);
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    container-type: inline-size;
-    position: relative;
-  }
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            padding-top: 20px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
 
-  .content { 
-    padding: 40px;
-    text-align: left; 
-    max-width: 960px; 
-    margin: auto;
-  }
+        .controls-container {
+            margin-bottom: 30px;
+        }
 
-  .section-card {
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
-    scroll-margin-top: 100px;
-    transition: transform 0.3s ease;
-  }
-  
-  .section-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-  }
-  
-  .intro-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    align-items: center;
-    gap: 30px;
-  }
+        .device-selector {
+            display: inline-flex;
+            background: white;
+            padding: 6px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+            gap: 5px;
+        }
 
-  h1 { 
-    text-align: center; 
-    margin-bottom: 30px;
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-top: 0;
-  }
-  
-  h2 { 
-    margin-top: 0; 
-    font-size: 1.5rem; 
-    font-weight: 600; 
-    color: #374151;
-    border-bottom: 2px solid #6366f1;
-    display: inline-block;
-    padding-bottom: 5px;
-    margin-bottom: 20px;
-  }
+        .device-btn {
+            border: none;
+            background: transparent;
+            padding: 10px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
 
-  p {
-    line-height: 1.6;
-    color: #4b5563;
-    margin-bottom: 1rem;
-  }
-  
-  p:last-child {
-    margin-bottom: 0;
-  }
+        .device-btn:hover {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
 
-  img {
-    width: 100%;
-    max-width: 280px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-  }
-  
-  li {
-    margin-bottom: 12px;
-    padding-left: 1.5em;
-    position: relative;
-    color: #4b5563;
-    line-height: 1.6;
-  }
-  
-  li::before {
-    content: "•";
-    color: #6366f1;
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-  }
+        .device-btn.active {
+            background-color: #212529;
+            color: white;
+        }
 
-  @container (max-width: 900px) {
-    .intro-grid { 
-      grid-template-columns: 1fr; 
-      text-align: center; 
-    }
-    .content { padding: 20px; }
-    .section-card { padding: 30px; }
-  }
+        .preview-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 800px;
+            perspective: 1000px;
+            padding-bottom: 50px;
+        }
 
-  @container (max-width: 600px) {
-    img { max-width: 180px; margin-top: 20px;}
-    h1 { font-size: 1.75rem; }
-    h2 { font-size: 1.25rem; }
-    .content { padding: 15px; }
-    .section-card { padding: 20px; margin-bottom: 20px; }
-  }
-</style>
+        #previewBox {
+            background-color: #f3f4f6;
+            margin: 0 auto;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            
+            width: 1280px; 
+            height: 720px;
+            
+            transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                        height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        border-radius 0.6s ease;
+            
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .profile-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .main-header {
+            background-color: #212529;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .main-header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .sub-header {
+            background-color: #495057;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .custom-card {
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .custom-card-header {
+            background-color: #f8f9fa;
+            color: #111827;
+            padding: 12px 20px;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 1rem;
+        }
+
+        .custom-card-body {
+            padding: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            display: block;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .custom-footer {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+        }
+
+        #previewBox::-webkit-scrollbar {
+            width: 8px;
+        }
+        #previewBox::-webkit-scrollbar-thumb {
+            background-color: #ced4da;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
 
-<header class="profile-header">
-    <nav>
-        <ul class="nav-menu">
-            <li class="nav-item"><a href="#home">HOME & INTRODUCTION</a></li>
-            <li class="nav-item"><a href="#about">ABOUT</a></li>
-            <li class="nav-item"><a href="#education">EDUCATION</a></li>
-            <li class="nav-item"><a href="#experience">EXPERIENCE</a></li>
-            <li class="nav-item"><a href="#hobbies">HOBBIES</a></li>
-            <li class="nav-item"><a href="#goals">GOALS</a></li>
-        </ul>
-    </nav>
-</header>
-
-<div class="controls-container">
-  <div class="device-selector">
-    <button class="device-btn active" onclick="resizeBox('1280,720', this)">
-      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/></svg>
-      Desktop
-    </button>
-    <button class="device-btn" onclick="resizeBox('768,1024', this)">
-      <svg viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 18c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm7-3H5V4h14v13z"/></svg>
-      Tablet
-    </button>
-    <button class="device-btn" onclick="resizeBox('390,844', this)">
-      <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
-      Phone
-    </button>
-  </div>
-</div>
-
-<div class="preview-wrapper">
-  <div id="previewBox">
-    <div class="content">
-      
-      <section id="home" class="section-card">
-        <h1>Jose Mirador's Profile</h1>
-        <div class="intro-grid">
-          <div>
-            <h2>Introduction</h2>
-            <p>Hello! My name is Jose Mirador. I’m passionate about technology, cybersecurity, and hands-on electronics. This website is a space to share my projects, ideas, and personal interests.</p>
-          </div>
-          <div>
-            <img src="https://i.pinimg.com/736x/14/20/fd/1420fdb2c1b84a55bc9a61e3050b0fa5.jpg" alt="Jose Mirador Profile Image">
-          </div>
+    <div class="container controls-container">
+        <div class="device-selector">
+            <button class="device-btn active" onclick="resizeBox('1280,720', this)">
+                <i class="bi bi-display"></i> Desktop
+            </button>
+            <button class="device-btn" onclick="resizeBox('768,1024', this)">
+                <i class="bi bi-tablet"></i> Tablet
+            </button>
+            <button class="device-btn" onclick="resizeBox('390,844', this)">
+                <i class="bi bi-phone"></i> Phone
+            </button>
         </div>
-      </section>
-      
-      <section id="about" class="section-card">
-        <h2>About Me</h2>
-        <p>I am a second-year student studying Information Technology at Asia Pacific College. I enjoy exploring new technologies, building hardware projects, and strengthening my skills in IT infrastructure and cybersecurity.</p>
-      </section>
-
-      <section id="education" class="section-card">
-        <h2>Education/Achievements</h2>
-        <ul>
-          <li>Graduated Junior High School at APEC Pateros</li>
-          <li>Graduated Senior High School at APEC Pateros, took Accounting Business Management as my course with high honors</li>
-        </ul>
-      </section>
-
-      <section id="experience" class="section-card">
-        <h2>Experience & Projects</h2>
-        <ul>
-          <li>Developed a voice-activated AI speaking bot that reads files for you</li>
-          <li>Created a borrow items and reserve room system</li>
-        </ul>
-      </section>
-
-      <section id="hobbies" class="section-card">
-        <h2>Hobbies & Interests</h2>
-        <ul>
-          <li>I love to listen to music</li>
-          <li>I read Manhwa</li>
-          <li>I watch Anime</li>
-        </ul>
-      </section>
-
-      <section id="goals" class="section-card">
-        <h2>Goals & Dreams</h2>
-        <ul>
-          <li>To finish college and earn a degree in Information Technology</li>
-          <li>To have a successful job in the field of IT</li>
-        </ul>
-      </section>
-
     </div>
-  </div>
-</div>
 
-<script>
-  function resizeBox(sizeValue, btnElement) {
-    var dimensions = sizeValue.split(",");
-    var width = dimensions[0];
-    var height = dimensions[1];
-    
-    var box = document.getElementById("previewBox");
-    
-    if (btnElement) {
-        document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
-        btnElement.classList.add('active');
-    }
-    
-    box.style.width = width + "px";
-    box.style.height = height + "px";
-    
-    if (width < 500) {
-      box.style.borderWidth = "12px"; 
-      box.style.borderRadius = "30px";
-      box.style.maxHeight = "844px"; 
-    } else {
-      box.style.borderWidth = "2px";
-      box.style.borderRadius = "16px";
-      box.style.maxHeight = "none"; 
-    }
-  }
+    <div class="preview-wrapper">
+        <div id="previewBox">
 
-  document.addEventListener('DOMContentLoaded', () => {
+            <div class="profile-wrapper">
+                
+                <header class="main-header">
+                    <h1>My Personal Profile</h1>
+                </header>
+
+                <div class="sub-header">
+                    Jose Mirador &mdash; Information Technology
+                </div>
+
+                <div class="p-4 p-md-5">
+                    <div class="row g-4">
+                        
+                        <div class="col-md-6">
+                            
+                            <div class="mb-4">
+                                <div class="custom-card">
+                                    <div class="custom-card-header">Gallery</div>
+                                    <div class="custom-card-body">
+                                        <img src="download.jpg" alt="Jose Mirador" class="gallery-img">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="custom-card">
+                                    <div class="custom-card-header">Education / Achievements</div>
+                                    <div class="custom-card-body">
+                                        <ul>
+                                            <li>Graduated Junior High School at APEC Pateros</li>
+                                            <li>Graduated Senior High School at APEC Pateros, took Accounting Business Management as my course with high honors</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="custom-card">
+                                    <div class="custom-card-header">Course</div>
+                                    <div class="custom-card-body">
+                                        <p>Information Technology</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            
+                            <div class="mb-4">
+                                <div class="custom-card">
+                                    <div class="custom-card-header">About Me</div>
+                                    <div class="custom-card-body">
+                                        <p>Hello! My name is Jose Mirador. I’m passionate about technology, cybersecurity, and hands-on electronics. This website is a space to share my projects, ideas, and personal interests.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="custom-card">
+                                    <div class="custom-card-header">IT Experience</div>
+                                    <div class="custom-card-body">
+                                        <ul>
+                                            <li>Developed a voice-activated AI speaking bot that reads files for you</li>
+                                            <li>Created a borrow items and reserve room system</li>
+                                            <li>Basic HTML and CSS</li>
+                                            <li>Python</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="custom-card">
+                                    <div class="custom-card-header">Hobbies & Interests</div>
+                                    <div class="custom-card-body">
+                                        <p>I love napping, drawing, listening to music, reading Manhwa, and playing games.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="custom-card">
+                                    <div class="custom-card-header">Goals In Life / Dream</div>
+                                    <div class="custom-card-body">
+                                        <p>To finish college, earn a degree in Information Technology, and live comfortably.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="custom-footer">
+                    &copy; 2025 Yours Truly, Jose
+                </footer>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    document.querySelectorAll('.nav-item a').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center' 
-          });
+    <script>
+        function resizeBox(sizeValue, btnElement) {
+            var dimensions = sizeValue.split(",");
+            var width = dimensions[0];
+            var height = dimensions[1];
+            
+            var box = document.getElementById("previewBox");
+            
+            if (btnElement) {
+                document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+            
+            box.style.width = width + "px";
+            box.style.height = height + "px";
+            
+            if (width < 500) {
+                box.style.border = "none";
+                box.style.borderRadius = "30px";
+            } else {
+                box.style.border = "1px solid rgba(0,0,0,0.05)";
+                box.style.borderRadius = "0";
+            }
         }
-      });
-    });
-  });
-</script>
-
+    </script>
 </body>
 </html>

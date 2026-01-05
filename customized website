@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jose Mirador | IT Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="preview-wrapper">
+        <div id="previewBox">
+            <div class="content-scroll-area"> 
+                <div class="bento-grid">
+                    
+                    <header class="main-header">
+                        <div class="header-content">
+                            <h1>JOSE MIRADOR</h1>
+                            <div class="badge-container">
+                                <span class="badge-role">Future IT Professional</span>
+                            </div>
+                            <p>Cybersecurity Enthusiast & Developer</p>
+                        </div>
+                    </header>
+
+                    <div class="bento-card card-gallery">
+                        <img src="image/download.jpg" alt="Jose Mirador" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <span>View Profile</span>
+                        </div>
+                    </div>
+
+                    <div class="bento-card card-about">
+                        <div class="card-title">
+                            <i class="bi bi-person-fill"></i> About Me
+                        </div>
+                        <div class="card-content">
+                            <p>Hello! I'm Jose. I’m passionate about technology, cybersecurity, and hands-on electronics.</p>
+                        </div>
+                    </div>
+
+                    <div class="bento-card card-course">
+                        <div class="card-title">
+                            <i class="bi bi-cpu-fill"></i> Course
+                        </div>
+                        <div class="card-content centered">
+                            <h3>BS Info Tech</h3>
+                        </div>
+                    </div>
+
+                    <div class="bento-card card-goal">
+                        <div class="card-title">
+                            <i class="bi bi-rocket-takeoff-fill"></i> Goal
+                        </div>
+                        <div class="card-content">
+                            <p>Earn IT degree & live comfortably.</p>
+                        </div>
+                    </div>
+
+                    <div class="bento-card card-education">
+                        <div class="card-title">
+                            <i class="bi bi-trophy-fill"></i> Education
+                        </div>
+                        <div class="card-content">
+                            <ul class="compact-list">
+                                <li><strong>APEC Pateros</strong> - JHS</li>
+                                <li><strong>APEC Pateros</strong> - SHS (Honors)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bento-card card-experience">
+                        <div class="card-title">
+                            <i class="bi bi-code-slash"></i> Projects
+                        </div>
+                        <div class="card-content">
+                            <div class="skill-tag-container">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Voice AI</span>
+                                <span class="skill-tag">Reservation Sys</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bento-card card-hobbies">
+                        <div class="card-title">
+                            <i class="bi bi-controller"></i> Interests
+                        </div>
+                        <div class="card-content icons-row">
+                            <i class="bi bi-book" title="Reading"></i>
+                            <i class="bi bi-music-note-beamed" title="Music"></i>
+                            <i class="bi bi-joystick" title="Gaming"></i>
+                        </div>
+                    </div>
+
+                    <footer class="custom-footer">
+                        &copy; 2026 Jose Mirador - APC WEBPROG
+                    </footer>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+CSS Style:
+:root {
+    --bg-dark: #0b1121;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --accent: #06b6d4; 
+    --accent-glow: rgba(6, 182, 212, 0.4);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    padding: 20px;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 40%);
+    min-height: 100vh;
+    margin: 0;
+}
+
+.preview-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 90vh;
+}
+
+#previewBox {
+    background-color: #0f172a;
+    width: 100%;
+    max-width: 1280px; 
+    min-height: 80vh;
+    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--card-border);
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.content-scroll-area {
+    padding: 30px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto; 
+    gap: 16px;
+}
+
+.bento-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 24px;
+    color: var(--text-primary);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bento-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px -10px var(--accent-glow);
+}
+
+.card-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--accent);
+}
+
+.main-header {
+    grid-column: 1 / -1; 
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px; 
+    border-radius: 24px;
+    min-height: 150px; 
+}
+
+.main-header h1 {
+    font-weight: 800;
+    font-size: 3rem;
+    line-height: 1.1; 
+    margin-bottom: 12px;
+    margin-top: 0;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge-role {
+    background: rgba(6, 182, 212, 0.15);
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    margin-bottom: 8px;
+}
+
+.main-header p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.card-gallery {
+    grid-column: span 1;
+    grid-row: span 2; 
+    padding: 0;
+    min-height: 250px;
+    border: none;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter:  contrast(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, #0f172a, transparent);
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-gallery:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.compact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.compact-list li { margin-bottom: 8px; }
+.compact-list strong { color: white; }
+
+.skill-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.card-course h3 {
+    font-size: 1.4rem;
+    margin: 0;
+    color: white;
+}
+
+.icons-row {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.6rem;
+    color: var(--text-secondary);
+    transition: color 0.3s;
+}
+
+.bento-card:hover .icons-row {
+    color: var(--accent);
+}
+
+.custom-footer {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-top: 15px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    opacity: 0.5;
+}
+
+/* --- TABLET LAYOUT (Automatic based on window size) --- */
+@media (max-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-gallery {
+        grid-column: span 2;
+        grid-row: span 1;
+        height: 400px;
+        min-height: 400px;
+    }
+
+    .gallery-img {
+        object-position: center 20%;
+    }
+}
+@media (max-width: 600px) {
+    .content-scroll-area {
+        padding: 15px;
+    }
+
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+
+    .main-header, 
+    .card-gallery,
+    .card-about, 
+    .card-education, 
+    .card-experience,
+    .card-hobbies,
+    .custom-footer {
+        grid-column: span 2 !important;
+        grid-row: auto !important; 
+    }
+
+    .card-course, 
+    .card-goal {
+        grid-column: span 1 !important;
+    }
+
+    .main-header h1 {
+        font-size: 2rem;
+    }
+    
+    .card-gallery {
+        min-height: 250px;
+        height: auto;
+    }
+}
